@@ -9,12 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements MoviePosterAdapter.ListItemClickListener {
 
     private RecyclerView mRecyclerView;
-    GridLayoutManager mLayoutManager;
+    private GridLayoutManager mLayoutManager;
+    private ProgressBar mProgressBar;
+    private MoviePosterAdapter mMoviePosterAdapter;
+    private Toast mToast;
+    private static final int NUM_LIST_ITEMS = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,9 @@ public class MainActivity extends Activity {
         mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
+
+        mMoviePosterAdapter = new MoviePosterAdapter(NUM_LIST_ITEMS, this);
+        mRecyclerView.setAdapter(mMoviePosterAdapter);
     }
 
     @Override
@@ -47,5 +55,18 @@ public class MainActivity extends Activity {
             startActivity(activityIntent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onListItemClick(int clickedItemIndex) {
+        if (mToast != null) {
+            mToast.cancel();
+        }
+
+        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
+        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
+
+        mToast.show();
     }
 }

@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class DetailsActivity extends Activity {
+
+    private Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
