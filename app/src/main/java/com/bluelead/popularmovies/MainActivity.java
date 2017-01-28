@@ -19,7 +19,7 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     private ProgressBar mProgressBar;
     private MoviePosterAdapter mMoviePosterAdapter;
     private Toast mToast;
-    private static final int NUM_LIST_ITEMS = 4;
+    private static final int NUM_LIST_ITEMS = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
