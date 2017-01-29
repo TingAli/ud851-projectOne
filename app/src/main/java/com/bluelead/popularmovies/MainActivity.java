@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements MoviePosterAdapter.ListItemClickListener {
@@ -17,6 +18,7 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     private RecyclerView mRecyclerView;
     private GridLayoutManager mLayoutManager;
     private ProgressBar mProgressBar;
+    private TextView mErrorMessageTextView;
     private MoviePosterAdapter mMoviePosterAdapter;
     private Toast mToast;
     private static final int NUM_LIST_ITEMS = 6;
@@ -25,6 +27,9 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mErrorMessageTextView = (TextView) findViewById(R.id.tv_error_message_display);
+        mProgressBar = (ProgressBar) findViewById(R.id.pb_loading_indicator);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_movieGrid);
         mLayoutManager = new GridLayoutManager(this, 2);
