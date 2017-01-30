@@ -21,7 +21,9 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     private TextView mErrorMessageTextView;
     private MoviePosterAdapter mMoviePosterAdapter;
     private Toast mToast;
+    private Context context = MainActivity.this;
     private static final int NUM_LIST_ITEMS = 6;
+    protected final String API_KEY = context.getResources().getString(R.string.movie_db_api_key);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

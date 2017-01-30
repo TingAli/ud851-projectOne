@@ -11,6 +11,5 @@ public class MovieNetworkUtils {
     private final static String POSTER_SIZE = "w185";
 
     private final static String API_URL = "http://api.themoviedb.org/3/movie/popular?api_key=";
-    protected final static String API_KEY = "";
 
 }
