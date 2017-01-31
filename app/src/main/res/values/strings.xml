@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Popular Movies</string>
-    <string name="movie_db_api_key">08f5e8f842b74e8eee405e07bc06c86c</string>
     <string name="action_settings">Settings</string>
     <string name="movie_imageview">Movie Poster</string>
     <string name="error_message">An error occurred, please try again later.</string>
+    <string name="action_refresh">Refresh</string>
 </resources>

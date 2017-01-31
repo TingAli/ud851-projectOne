@@ -23,7 +23,6 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     private Toast mToast;
     private Context context = MainActivity.this;
     private static final int NUM_LIST_ITEMS = 6;
-    protected final String API_KEY = context.getResources().getString(R.string.movie_db_api_key);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +55,18 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
         Intent activityIntent;
         Class destinationActivity;
 
-        if(item.getItemId() == R.id.settingsOption) {
-            destinationActivity = SettingsActivity.class;
-            activityIntent = new Intent(context, destinationActivity);
-            startActivity(activityIntent);
+        switch(item.getItemId()) {
+            case (R.id.settingsOption):
+                destinationActivity = SettingsActivity.class;
+                activityIntent = new Intent(context, destinationActivity);
+                startActivity(activityIntent);
+                return true;
+            case (R.id.refreshOption):
+                mMoviePosterAdapter = new MoviePosterAdapter(NUM_LIST_ITEMS, this);
+                mRecyclerView.setAdapter(mMoviePosterAdapter);
+                return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

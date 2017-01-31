@@ -61,7 +61,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 
             listItemImageView = (ImageView) itemView.findViewById(R.id.iv_poster);
 
-            listItemImageView.setImageResource(R.drawable.image1); //uhmmmmmmmmmm
+            listItemImageView.setImageResource(R.drawable.image1); //uhmmmmmmmmmm - needs to be changed to loop through iv's and display looped through movie objects' posters.
             itemView.setOnClickListener(this);
         }
 

@@ -4,4 +4,7 @@
     <item
         android:id="@+id/settingsOption"
         android:title="@string/action_settings"/>
+    <item
+        android:id="@+id/refreshOption"
+        android:title="@string/action_refresh"/>
 </menu>
