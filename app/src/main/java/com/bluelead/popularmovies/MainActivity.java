@@ -3,15 +3,20 @@ package com.bluelead.popularmovies;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class MainActivity extends Activity implements MoviePosterAdapter.ListItemClickListener {
 
@@ -39,6 +44,63 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
 
         mMoviePosterAdapter = new MoviePosterAdapter(NUM_LIST_ITEMS, this);
         mRecyclerView.setAdapter(mMoviePosterAdapter);
+
+        if(MovieNetworkUtils.isOnline(context)) {
+            Toast.makeText(context, "CONNECTED!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(context, "NOT CONNECTED", Toast.LENGTH_SHORT).show();
+        }
+
+        //TEST AREA START
+
+        //TEST AREA END
+
+    }
+
+    private void makeMovieQuery(){
+        URL url = MovieNetworkUtils.buildURL(MovieNetworkUtils.POPULAR_QUERY);
+        new MovieQueryTask().execute(url);
+    }
+
+    public class MovieQueryTask extends AsyncTask<URL, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressBar.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.INVISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(URL... params) {
+            URL url = MovieNetworkUtils.buildURL(MovieNetworkUtils.POPULAR_QUERY);
+            Toast.makeText(context, url.toString(), Toast.LENGTH_LONG).show();
+            System.out.println(url);
+
+            String result = null;
+            try {
+                MovieNetworkUtils.getResponseFromHttpUrl(url);
+                //System.out.println(result);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String searchResults) {
+            mProgressBar.setVisibility(View.INVISIBLE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+            if(searchResults != null && !searchResults.equals("")) {
+                showJsonDataView();
+                //show data
+            }
+            else {
+                showErrorMessage();
+            }
+
+        }
     }
 
     @Override
@@ -62,6 +124,7 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
                 startActivity(activityIntent);
                 return true;
             case (R.id.refreshOption):
+                makeMovieQuery();
                 mMoviePosterAdapter = new MoviePosterAdapter(NUM_LIST_ITEMS, this);
                 mRecyclerView.setAdapter(mMoviePosterAdapter);
                 return true;
@@ -70,6 +133,19 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
         return super.onOptionsItemSelected(item);
     }
 
+    private void showJsonDataView() {
+        // First, make sure the error is invisible
+        mErrorMessageTextView.setVisibility(View.INVISIBLE);
+        // Then, make sure the JSON data is visible
+        mRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void showErrorMessage() {
+        // First, hide the currently visible data
+        mRecyclerView.setVisibility(View.INVISIBLE);
+        // Then, show the error
+        mErrorMessageTextView.setVisibility(View.VISIBLE);
+    }
 
     @Override
     public void onListItemClick(int clickedItemIndex) {

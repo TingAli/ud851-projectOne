@@ -9,7 +9,9 @@ import com.google.gson.annotations.SerializedName;
  * Created by Imdad Ali on 28/01/2017.
  */
 
+
 public class Movie implements Parcelable {
+    public static final String POSTER_BASE_URL = "http://image.tmdb.org/t/p/";
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
 
         public Movie createFromParcel(Parcel in) {

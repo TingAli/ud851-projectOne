@@ -13,6 +13,12 @@ Sample url: https://api.themoviedb.org/3/movie/popular?api_key=08f5e8f842b74e8ee
 
 HTTP GET POST: http://hayageek.com/android-http-post-get/
 
+GSON eg: http://howtodoinjava.com/best-practices/google-gson-tutorial-convert-java-object-to-from-json/
+GSON userguide: https://github.com/google/gson/blob/master/UserGuide.md
+Retrofit: https://futurestud.io/tutorials/retrofit-synchronous-and-asynchronous-requests
+Retrofit so: http://stackoverflow.com/questions/41343172/to-retrieve-data-using-retrofit-in-android
+
+
 
 
 
