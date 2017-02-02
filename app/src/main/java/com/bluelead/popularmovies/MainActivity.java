@@ -15,8 +15,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.net.URL;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends Activity implements MoviePosterAdapter.ListItemClickListener {
 
@@ -74,17 +76,17 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
 
         @Override
         protected String doInBackground(URL... params) {
-            URL url = MovieNetworkUtils.buildURL(MovieNetworkUtils.POPULAR_QUERY);
-            Toast.makeText(context, url.toString(), Toast.LENGTH_LONG).show();
-            System.out.println(url);
-
             String result = null;
-            try {
-                MovieNetworkUtils.getResponseFromHttpUrl(url);
-                //System.out.println(result);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(MovieNetworkUtils.DB_BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+             IMovieNetworkUtils client = retrofit.create(IMovieNetworkUtils.class);
+
+
+
             return result;
         }
 

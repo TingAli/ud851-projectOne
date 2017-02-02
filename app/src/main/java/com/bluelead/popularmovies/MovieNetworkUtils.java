@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.*;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -23,10 +23,12 @@ public class MovieNetworkUtils {
     private final static String KEY_PARAM = "api_key";
 
     private final static String API_BASE_URL = "http://api.themoviedb.org/3";
-    private final static String API_KEY = "08f5e8f842b74e8eee405e07bc06c86c";
+    public final static String API_KEY = "08f5e8f842b74e8eee405e07bc06c86c";
     private final static String MOVIE_QUERY = "movie";
     public final static String TOP_RATED_QUERY = "top_rated";
     public final static String POPULAR_QUERY = "popular";
+
+    public final static String DB_BASE_URL = "http://api.themoviedb.org/3/";
 
     public static boolean isOnline(Context context) {
         ConnectivityManager cm =
