@@ -11,8 +11,8 @@ import retrofit2.http.Path;
  */
 
 public interface IMovieNetworkUtils {
-    @GET("/movie/popular")
-    Call<List<Movie>> reposForUser(
-            @Path("user") String user
+    @GET("movie/{query}?api_key=08f5e8f842b74e8eee405e07bc06c86c") //http://api.themoviedb.org/3/movie/popular?api_key=08f5e8f842b74e8eee405e07bc06c86c
+    Call<List<Movie>> movieQuery(
+            @Path("query") String query
     );
 }
