@@ -15,7 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.net.URL;
 
 public class MainActivity extends Activity implements MoviePosterAdapter.ListItemClickListener {
@@ -76,11 +75,7 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
         protected String doInBackground(URL... params) {
             String result = null;
 
-            try {
-                MovieNetworkUtils.getResponseFromHttpUrl(context, MovieNetworkUtils.TOP_RATED_QUERY);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            MovieNetworkUtils.getMovies(context);
 
             return result;
         }

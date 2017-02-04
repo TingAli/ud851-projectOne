@@ -1,9 +1,8 @@
 package com.bluelead.popularmovies;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -11,9 +10,12 @@ import retrofit2.http.Query;
  */
 
 public interface IMovieNetworkUtils {
-    @GET("movie/popular") //http://api.themoviedb.org/3/movie/popular?api_key=08f5e8f842b74e8eee405e07bc06c86c
-    Call<List<Movie>> popularGet(@Query("api_key") String apikey);
+    @GET("3/movie/popular")
+    Call<ApiResponse> getPopular(@Query("api_key") String apiKey);
 
-    @GET("movie/top_rated") //http://api.themoviedb.org/3/movie/popular?api_key=08f5e8f842b74e8eee405e07bc06c86c
-    Call<List<Movie>> topRatedGet(@Query("api_key") String apikey);
+    @GET("3/movie/top_rated")
+    Call<ApiResponse> getTopRated(@Query("api_key") String apiKey);
+
+    @GET("movie/{id}")
+    Call<ApiResponse> getMovieDetails(@Path("id") int id, @Query("api_key") String apiKey);
 }
