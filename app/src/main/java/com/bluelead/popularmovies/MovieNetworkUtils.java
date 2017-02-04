@@ -30,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MovieNetworkUtils {
     private final static String POSTER_BASE_URL = " http://image.tmdb.org/t/p/";
     private final static String POSTER_SIZE = "w185";
-    private final static String KEY_PARAM = "api_key";
+    public final static String KEY_PARAM = "api_key";
 
     public final static String API_BASE_URL = "http://api.themoviedb.org/3/";
     public final static String API_KEY = "08f5e8f842b74e8eee405e07bc06c86c";
@@ -74,7 +74,7 @@ public class MovieNetworkUtils {
                 new Builder()
                         .baseUrl(API_BASE_URL)
                         .addConverterFactory(
-                                GsonConverterFactory.create(gson)
+                                GsonConverterFactory.create()
                         );
 
         Retrofit retrofit =
@@ -87,9 +87,10 @@ public class MovieNetworkUtils {
         IMovieNetworkUtils client =  retrofit.create(IMovieNetworkUtils.class);
 
         Call<List<Movie>> call =
-                client.movieQuery(query);
+                client.popularGet(API_KEY);
 
         call.enqueue(new Callback<List<Movie>>() {
+
             @Override
             public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
                 // The network call was a success and we got a response
