@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends Activity implements MoviePosterAdapter.ListItemClickListener {
 
@@ -58,11 +58,10 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     }
 
     private void makeMovieQuery(){
-        URL url = MovieNetworkUtils.buildURL(MovieNetworkUtils.POPULAR_QUERY);
-        new MovieQueryTask().execute(url);
+        new MovieQueryTask().execute();
     }
 
-    public class MovieQueryTask extends AsyncTask<URL, Void, String> {
+    public class MovieQueryTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
 
         @Override
         protected void onPreExecute() {
@@ -72,19 +71,19 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
         }
 
         @Override
-        protected String doInBackground(URL... params) {
-            String result = null;
+        protected ArrayList<Movie> doInBackground(Void... params) {
+            ArrayList<Movie> moviesList = null;
 
-            MovieNetworkUtils.getMovies(context);
+            moviesList = MovieNetworkUtils.getMovies(context, MovieNetworkUtils.POPULAR_QUERY, 0);
 
-            return result;
+            return moviesList;
         }
 
         @Override
-        protected void onPostExecute(String searchResults) {
+        protected void onPostExecute(ArrayList<Movie> moviesList) {
             mProgressBar.setVisibility(View.INVISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
-            if(searchResults != null && !searchResults.equals("")) {
+            if(moviesList != null) {
                 showJsonDataView();
                 //show data
             }
