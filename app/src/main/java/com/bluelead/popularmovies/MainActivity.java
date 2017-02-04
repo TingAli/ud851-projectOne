@@ -26,7 +26,8 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     private MoviePosterAdapter mMoviePosterAdapter;
     private Toast mToast;
     private Context context = MainActivity.this;
-    private static final int NUM_LIST_ITEMS = 6;
+    private ArrayList<Movie> mMoviesList;
+    public static final int NUM_LIST_ITEMS = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,7 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        mMoviePosterAdapter = new MoviePosterAdapter(NUM_LIST_ITEMS, this);
-        mRecyclerView.setAdapter(mMoviePosterAdapter);
+
 
         if(MovieNetworkUtils.isOnline(context)) {
             Toast.makeText(context, "CONNECTED!", Toast.LENGTH_SHORT).show();
@@ -72,11 +72,9 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
 
         @Override
         protected ArrayList<Movie> doInBackground(Void... params) {
-            ArrayList<Movie> moviesList = null;
+            mMoviesList = MovieNetworkUtils.getMovies(context, MovieNetworkUtils.POPULAR_QUERY, 0);
 
-            moviesList = MovieNetworkUtils.getMovies(context, MovieNetworkUtils.POPULAR_QUERY, 0);
-
-            return moviesList;
+            return mMoviesList;
         }
 
         @Override
@@ -116,8 +114,6 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
                 return true;
             case (R.id.refreshOption):
                 makeMovieQuery();
-                mMoviePosterAdapter = new MoviePosterAdapter(NUM_LIST_ITEMS, this);
-                mRecyclerView.setAdapter(mMoviePosterAdapter);
                 return true;
         }
 
@@ -125,6 +121,8 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     }
 
     private void showJsonDataView() {
+        mMoviePosterAdapter = new MoviePosterAdapter(this, NUM_LIST_ITEMS, this, mMoviesList);
+        mRecyclerView.setAdapter(mMoviePosterAdapter);
         // First, make sure the error is invisible
         mErrorMessageTextView.setVisibility(View.INVISIBLE);
         // Then, make sure the JSON data is visible
