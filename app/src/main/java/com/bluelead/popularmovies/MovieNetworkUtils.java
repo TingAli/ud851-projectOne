@@ -31,7 +31,7 @@ public class MovieNetworkUtils {
     public final static String POPULAR_QUERY = "popular";
     public final static String DETAILS_QUERY = "details";
 
-    private static ArrayList<Movie> moviesList = null;
+    private static ArrayList<Movie> mMoviesList;
 
     public static boolean isOnline(Context context) {
         ConnectivityManager cm =
@@ -78,7 +78,7 @@ public class MovieNetworkUtils {
                     System.out.println(response);
                     Toast.makeText(context, "SUCCESS", Toast.LENGTH_LONG).show();
 
-                    moviesList =  response.body().getResults();
+                    mMoviesList =  response.body().getResults();
                 }
 
                 @Override
@@ -94,7 +94,7 @@ public class MovieNetworkUtils {
             Toast.makeText(context, "Something went wrong!", Toast.LENGTH_LONG).show();
         }
 
-        return moviesList;
+        return mMoviesList;
 
     }
 }

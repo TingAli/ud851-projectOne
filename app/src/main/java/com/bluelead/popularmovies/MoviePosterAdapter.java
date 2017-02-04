@@ -1,25 +1,31 @@
 package com.bluelead.popularmovies;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.MoviePosterViewHolder> {
 
     private int mNumberItems, mViewHolderCount;
     final private ListItemClickListener mOnClickListener;
     private static final String TAG = MoviePosterAdapter.class.getSimpleName();
+    private static ArrayList<Movie> mMovieList;
+    private Context mContext;
 
-    public MoviePosterAdapter(int numberOfItems, ListItemClickListener listener) {
+    public MoviePosterAdapter(Context context, int numberOfItems, ListItemClickListener listener, ArrayList<Movie> moviesList) {
         mNumberItems = numberOfItems;
         mOnClickListener = listener;
         mViewHolderCount = 0;
+        mMovieList = moviesList;
+        mContext = context;
     }
 
     public interface ListItemClickListener {
@@ -61,7 +67,8 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 
             listItemImageView = (ImageView) itemView.findViewById(R.id.iv_poster);
 
-            listItemImageView.setImageResource(R.drawable.image1); //uhmmmmmmmmmm - needs to be changed to loop through iv's and display looped through movie objects' posters.
+            Picasso.with(mContext).load(mMovieList.get(0).getPosterPath()).into(listItemImageView);
+
             itemView.setOnClickListener(this);
         }
 
