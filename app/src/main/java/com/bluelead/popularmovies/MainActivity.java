@@ -72,7 +72,19 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
 
         @Override
         protected ArrayList<Movie> doInBackground(Void... params) {
-            mMoviesList = MovieNetworkUtils.getMovies(context, MovieNetworkUtils.POPULAR_QUERY, 0);
+            MovieNetworkUtils.getMovies(context, MovieNetworkUtils.POPULAR_QUERY, 0, new Callback<ArrayList<Movie>>() {
+                @Override
+                public void next(ArrayList<Movie> result) {
+                    mMoviesList = result;
+                    if(mMoviesList != null) {
+                        showJsonDataView();
+                        //show data
+                    }
+                    else {
+                        showErrorMessage();
+                    }
+                }
+            });
 
             return mMoviesList;
         }
@@ -81,14 +93,6 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
         protected void onPostExecute(ArrayList<Movie> moviesList) {
             mProgressBar.setVisibility(View.INVISIBLE);
             mRecyclerView.setVisibility(View.VISIBLE);
-            if(moviesList != null) {
-                showJsonDataView();
-                //show data
-            }
-            else {
-                showErrorMessage();
-            }
-
         }
     }
 
@@ -121,7 +125,7 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     }
 
     private void showJsonDataView() {
-        mMoviePosterAdapter = new MoviePosterAdapter(this, NUM_LIST_ITEMS, this, mMoviesList);
+        mMoviePosterAdapter = new MoviePosterAdapter(context, NUM_LIST_ITEMS, MainActivity.this, mMoviesList);
         mRecyclerView.setAdapter(mMoviePosterAdapter);
         // First, make sure the error is invisible
         mErrorMessageTextView.setVisibility(View.INVISIBLE);

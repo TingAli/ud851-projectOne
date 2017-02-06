@@ -40,7 +40,9 @@ public class MovieNetworkUtils {
         return netInfo != null && netInfo.isConnected();
     }
 
-    public static ArrayList<Movie> getMovies(final Context context, String query, int id){
+    public static void getMovies(final Context context, String query, int id, final com.bluelead.popularmovies.Callback<ArrayList<Movie>> callbackInterface){
+
+        mMoviesList = new ArrayList<Movie>();
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -79,6 +81,8 @@ public class MovieNetworkUtils {
                     Toast.makeText(context, "SUCCESS", Toast.LENGTH_LONG).show();
 
                     mMoviesList =  response.body().getResults();
+
+                    callbackInterface.next(mMoviesList);
                 }
 
                 @Override
@@ -93,8 +97,5 @@ public class MovieNetworkUtils {
         else {
             Toast.makeText(context, "Something went wrong!", Toast.LENGTH_LONG).show();
         }
-
-        return mMoviesList;
-
     }
 }
