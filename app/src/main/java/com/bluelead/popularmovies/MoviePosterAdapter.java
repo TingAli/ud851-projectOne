@@ -2,7 +2,6 @@ package com.bluelead.popularmovies;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,8 +47,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 
     @Override
     public void onBindViewHolder(MoviePosterAdapter.MoviePosterViewHolder holder, int position) {
-        Log.d(TAG, "#" + position);
-        holder.bind(position);
+        holder.bind(mMovieList.get(position));
     }
 
     @Override
@@ -67,13 +65,13 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
 
             listItemImageView = (ImageView) itemView.findViewById(R.id.iv_poster);
 
-            Picasso.with(mContext).load(mMovieList.get(0).getPosterPath()).into(listItemImageView);
-
             itemView.setOnClickListener(this);
         }
 
-        void bind(int listIndex) {
-            listItemImageView.setContentDescription("Moview Poster: " + listIndex);
+        void bind(Movie movie) {
+            for(int index = 0; index < mNumberItems; index++) {
+                Picasso.with(mContext).load(movie.getPosterPath()).into(listItemImageView);
+            }
         }
 
         @Override
