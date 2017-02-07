@@ -19,6 +19,8 @@ Retrofit: https://futurestud.io/tutorials/retrofit-synchronous-and-asynchronous-
 Retrofit so: http://stackoverflow.com/questions/41343172/to-retrieve-data-using-retrofit-in-android
 Retrofit GET: https://futurestud.io/tutorials/retrofit-getting-started-and-android-client
 
+Intent with Parceable object: http://www.easyinfogeek.com/2014/01/android-tutorial-two-methods-of-passing.html
+
 http://howtodoinjava.com/best-practices/google-gson-tutorial-convert-java-object-to-from-json/
 
 https://github.com/google/gson/blob/master/UserGuide.md
