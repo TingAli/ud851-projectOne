@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class DetailsActivity extends Activity {
-
     private Toast mToast;
+    private final Context CONTEXT = DetailsActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

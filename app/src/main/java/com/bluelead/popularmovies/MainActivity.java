@@ -17,7 +17,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity implements MoviePosterAdapter.ListItemClickListener {
+public class MainActivity extends Activity
+        implements MoviePosterAdapter.ListItemClickListener {
 
     private RecyclerView mRecyclerView;
     private GridLayoutManager mLayoutManager;
@@ -42,14 +43,8 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-
-
-        if(MovieNetworkUtils.isOnline(mContext)) {
-            Toast.makeText(mContext, "CONNECTED!", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(mContext, "NOT CONNECTED", Toast.LENGTH_SHORT).show();
-        }
+        //Start
+        makeMovieQuery();
 
         //TEST AREA START
 
@@ -58,7 +53,12 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     }
 
     private void makeMovieQuery(){
-        new MovieQueryTask().execute();
+        if(MovieNetworkUtils.isOnline(mContext)) {
+            new MovieQueryTask().execute();
+        }
+        else {
+            Toast.makeText(mContext, "ERROR: No Connection", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public class MovieQueryTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
@@ -72,7 +72,8 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
 
         @Override
         protected ArrayList<Movie> doInBackground(Void... params) {
-            MovieNetworkUtils.getMovies(mContext, MovieNetworkUtils.POPULAR_QUERY, 0, new Callback<ArrayList<Movie>>() {
+            MovieNetworkUtils.getMovies(mContext, MovieNetworkUtils.POPULAR_QUERY, 0,
+                    new Callback<ArrayList<Movie>>() {
                 @Override
                 public void next(ArrayList<Movie> result) {
                     mMoviesList = result;
@@ -124,7 +125,8 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     }
 
     private void showJsonDataView() {
-        mMoviePosterAdapter = new MoviePosterAdapter(mContext, NUM_LIST_ITEMS, MainActivity.this, mMoviesList);
+        mMoviePosterAdapter = new MoviePosterAdapter(mContext, NUM_LIST_ITEMS,
+                MainActivity.this, mMoviesList);
         mRecyclerView.setAdapter(mMoviePosterAdapter);
         // First, make sure the error is invisible
         mErrorMessageTextView.setVisibility(View.INVISIBLE);

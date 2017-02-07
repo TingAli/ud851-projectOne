@@ -24,7 +24,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MovieNetworkUtils {
     public final static String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
     public static final String BASE_URL_IMAGE_BACKDROP = "http://image.tmdb.org/t/p/w780";
-    public final static String KEY_PARAM = "api_key";
     public final static String API_BASE_URL = "http://api.themoviedb.org/";
     public final static String API_KEY = "08f5e8f842b74e8eee405e07bc06c86c";
     public final static String TOP_RATED_QUERY = "top_rated";
@@ -68,7 +67,7 @@ public class MovieNetworkUtils {
             call = apiService.getMovieDetails(id, API_KEY);
         }
         else {
-            Toast.makeText(context, "Something went wrong!", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "ERROR: Something went wrong!", Toast.LENGTH_LONG).show();
         }
 
         if(call != null) {
@@ -76,10 +75,6 @@ public class MovieNetworkUtils {
 
                 @Override
                 public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
-
-                    System.out.println(response);
-                    Toast.makeText(context, "SUCCESS", Toast.LENGTH_LONG).show();
-
                     mMoviesList =  response.body().getResults();
 
                     callbackInterface.next(mMoviesList);
@@ -90,12 +85,12 @@ public class MovieNetworkUtils {
                     // the network call was a failure
                     // handle error
                     t.printStackTrace();
-                    Toast.makeText(context, "API FAIL", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "ERROR: API fail", Toast.LENGTH_LONG).show();
                 }
             });
         }
         else {
-            Toast.makeText(context, "Something went wrong!", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "ERROR: Something went wrong!", Toast.LENGTH_LONG).show();
         }
     }
 }
