@@ -25,7 +25,7 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     private TextView mErrorMessageTextView;
     private MoviePosterAdapter mMoviePosterAdapter;
     private Toast mToast;
-    private Context context = MainActivity.this;
+    private Context mContext = MainActivity.this;
     private ArrayList<Movie> mMoviesList;
     public static final int NUM_LIST_ITEMS = 6;
 
@@ -44,11 +44,11 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
 
 
 
-        if(MovieNetworkUtils.isOnline(context)) {
-            Toast.makeText(context, "CONNECTED!", Toast.LENGTH_SHORT).show();
+        if(MovieNetworkUtils.isOnline(mContext)) {
+            Toast.makeText(mContext, "CONNECTED!", Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(context, "NOT CONNECTED", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "NOT CONNECTED", Toast.LENGTH_SHORT).show();
         }
 
         //TEST AREA START
@@ -72,13 +72,12 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
 
         @Override
         protected ArrayList<Movie> doInBackground(Void... params) {
-            MovieNetworkUtils.getMovies(context, MovieNetworkUtils.POPULAR_QUERY, 0, new Callback<ArrayList<Movie>>() {
+            MovieNetworkUtils.getMovies(mContext, MovieNetworkUtils.POPULAR_QUERY, 0, new Callback<ArrayList<Movie>>() {
                 @Override
                 public void next(ArrayList<Movie> result) {
                     mMoviesList = result;
                     if(mMoviesList != null) {
                         showJsonDataView();
-                        //show data
                     }
                     else {
                         showErrorMessage();
@@ -106,14 +105,14 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Context context = MainActivity.this;
+        Context mContext = MainActivity.this;
         Intent activityIntent;
         Class destinationActivity;
 
         switch(item.getItemId()) {
             case (R.id.settingsOption):
                 destinationActivity = SettingsActivity.class;
-                activityIntent = new Intent(context, destinationActivity);
+                activityIntent = new Intent(mContext, destinationActivity);
                 startActivity(activityIntent);
                 return true;
             case (R.id.refreshOption):
@@ -125,7 +124,7 @@ public class MainActivity extends Activity implements MoviePosterAdapter.ListIte
     }
 
     private void showJsonDataView() {
-        mMoviePosterAdapter = new MoviePosterAdapter(context, NUM_LIST_ITEMS, MainActivity.this, mMoviesList);
+        mMoviePosterAdapter = new MoviePosterAdapter(mContext, NUM_LIST_ITEMS, MainActivity.this, mMoviesList);
         mRecyclerView.setAdapter(mMoviePosterAdapter);
         // First, make sure the error is invisible
         mErrorMessageTextView.setVisibility(View.INVISIBLE);
