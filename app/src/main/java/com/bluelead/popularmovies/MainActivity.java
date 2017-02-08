@@ -65,7 +65,7 @@ public class MainActivity extends Activity
         else if(mTopRatedPref) {
             mQuery = MovieNetworkUtils.TOP_RATED_QUERY;
         }
-        
+
         if(MovieNetworkUtils.isOnline(CONTEXT)) {
             new MovieQueryTask().execute();
         }

@@ -25,7 +25,7 @@ public class MovieNetworkUtils {
     public final static String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
     public static final String BASE_URL_IMAGE_BACKDROP = "http://image.tmdb.org/t/p/w780";
     public final static String API_BASE_URL = "http://api.themoviedb.org/";
-    public final static String API_KEY = "08f5e8f842b74e8eee405e07bc06c86c";
+    public final static String API_KEY = "API_KEY_GOES_HERE"; // INSERT OWN API KEY
     public final static String TOP_RATED_QUERY = "top_rated";
     public final static String POPULAR_QUERY = "popular";
 
