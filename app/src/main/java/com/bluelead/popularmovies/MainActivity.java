@@ -29,6 +29,7 @@ public class MainActivity extends Activity
     private final Context CONTEXT = MainActivity.this;
     private ArrayList<Movie> mMoviesList;
     public static final int NUM_LIST_ITEMS = 6;
+    private Bundle mBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +151,12 @@ public class MainActivity extends Activity
         // Intent for starting new DetailsActivity here...
         Class detailsActivity = DetailsActivity.class;
         Intent detailsIntent = new Intent(CONTEXT, detailsActivity);
+
+        mBundle = new Bundle();
+        Movie movieAtIndex = mMoviesList.get(clickedItemIndex);
+        mBundle.putParcelable("PAR_KEY", movieAtIndex);
+        detailsIntent.putExtras(mBundle);
+
         startActivity(detailsIntent);
     }
 }

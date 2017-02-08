@@ -10,12 +10,15 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <com.gc.materialdesign.views.Card
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF">
                 <TextView
                     android:id="@+id/original_title_tv"
                     android:layout_width="match_parent"
@@ -24,32 +27,23 @@
                     android:textAllCaps="true"
                     android:textStyle="bold"
                     android:textColor="#000000"/>
-            </com.gc.materialdesign.views.Card>
-
-            <com.gc.materialdesign.views.Card
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/movie_poster_iv"
+                android:layout_width="180dp"
+                android:layout_height="250dp" />
+            <TextView
+                android:id="@+id/movie_overview_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/movie_vote_average_tv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:id="@+id/movie_poster_iv"
-                        android:layout_width="180dp"
-                        android:layout_height="250dp" />
-                    <TextView
-                        android:id="@+id/movie_overview_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
-                </RelativeLayout>
-                <TextView
-                    android:id="@+id/movie_vote_average_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/movie_release_date_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.gc.materialdesign.views.Card>
-        </RelativeLayout>
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/movie_release_date_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </ScrollView>
 </RelativeLayout>
