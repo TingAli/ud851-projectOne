@@ -4,4 +4,11 @@
     <string name="movie_imageview">Movie Poster</string>
     <string name="error_message">An error occurred, please try again later.</string>
     <string name="action_refresh">Refresh</string>
+    <string name="popular_pref">Popular</string>
+    <string name="topRated_pref">Top Rated</string>
+    <string name="query_pref">Query</string>
+    <string name="query_pref_summary">Change the query parameter.</string>
+    <string name="query_popular_pref_summary">Click this to query \'popular\'.</string>
+    <string name="query_topRated_pref_summary">Click this to query \'top_rated\'.</string>
+
 </resources>

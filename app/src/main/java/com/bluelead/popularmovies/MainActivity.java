@@ -3,7 +3,6 @@ package com.bluelead.popularmovies;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -31,7 +30,6 @@ public class MainActivity extends Activity
     private ArrayList<Movie> mMoviesList;
     public static final int NUM_LIST_ITEMS = 6;
     private Bundle mBundle;
-    private SharedPreferences mSharedPreferences;
     private final String[] QUERIES = new String[] {
             new String(MovieNetworkUtils.POPULAR_QUERY),
             new String(MovieNetworkUtils.TOP_RATED_QUERY)

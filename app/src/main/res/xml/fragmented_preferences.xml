@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/query_pref">
+
+        <CheckBoxPreference
+            android:id="@+id/popular_pref_cb"
+            android:defaultValue="true"
+            android:key="popular_pref_cb"
+            android:title="@string/popular_pref"
+            android:summary="@string/query_popular_pref_summary"/>
+        <CheckBoxPreference
+            android:id="@+id/topRated_pref_cb"
+            android:defaultValue="false"
+            android:key="topRated_pref_cb"
+            android:title="@string/topRated_pref"
+            android:summary="@string/query_topRated_pref_summary"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
