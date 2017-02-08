@@ -1,7 +1,6 @@
 package com.bluelead.popularmovies;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,11 +78,6 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
             mOnClickListener.onListItemClick(clickedPosition);
-            // Intent for starting new DetailsActivity here...
-            DetailsActivity detailsActivity = new DetailsActivity();
-            Intent detailsIntent = new Intent();
-
-
         }
     }
 }

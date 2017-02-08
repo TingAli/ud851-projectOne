@@ -26,7 +26,7 @@ public class MainActivity extends Activity
     private TextView mErrorMessageTextView;
     private MoviePosterAdapter mMoviePosterAdapter;
     private Toast mToast;
-    private Context mContext = MainActivity.this;
+    private final Context CONTEXT = MainActivity.this;
     private ArrayList<Movie> mMoviesList;
     public static final int NUM_LIST_ITEMS = 6;
 
@@ -45,19 +45,14 @@ public class MainActivity extends Activity
 
         //Start
         makeMovieQuery();
-
-        //TEST AREA START
-
-        //TEST AREA END
-
     }
 
     private void makeMovieQuery(){
-        if(MovieNetworkUtils.isOnline(mContext)) {
+        if(MovieNetworkUtils.isOnline(CONTEXT)) {
             new MovieQueryTask().execute();
         }
         else {
-            Toast.makeText(mContext, "ERROR: No Connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CONTEXT, "ERROR: No Connection", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -72,7 +67,7 @@ public class MainActivity extends Activity
 
         @Override
         protected ArrayList<Movie> doInBackground(Void... params) {
-            MovieNetworkUtils.getMovies(mContext, MovieNetworkUtils.POPULAR_QUERY, 0,
+            MovieNetworkUtils.getMovies(CONTEXT, MovieNetworkUtils.POPULAR_QUERY, 0,
                     new Callback<ArrayList<Movie>>() {
                 @Override
                 public void next(ArrayList<Movie> result) {
@@ -106,14 +101,14 @@ public class MainActivity extends Activity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Context mContext = MainActivity.this;
+        Context CONTEXT = MainActivity.this;
         Intent activityIntent;
         Class destinationActivity;
 
         switch(item.getItemId()) {
             case (R.id.settingsOption):
                 destinationActivity = SettingsActivity.class;
-                activityIntent = new Intent(mContext, destinationActivity);
+                activityIntent = new Intent(CONTEXT, destinationActivity);
                 startActivity(activityIntent);
                 return true;
             case (R.id.refreshOption):
@@ -125,7 +120,7 @@ public class MainActivity extends Activity
     }
 
     private void showJsonDataView() {
-        mMoviePosterAdapter = new MoviePosterAdapter(mContext, NUM_LIST_ITEMS,
+        mMoviePosterAdapter = new MoviePosterAdapter(CONTEXT, NUM_LIST_ITEMS,
                 MainActivity.this, mMoviesList);
         mRecyclerView.setAdapter(mMoviePosterAdapter);
         // First, make sure the error is invisible
@@ -151,5 +146,10 @@ public class MainActivity extends Activity
         mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
 
         mToast.show();
+
+        // Intent for starting new DetailsActivity here...
+        Class detailsActivity = DetailsActivity.class;
+        Intent detailsIntent = new Intent(CONTEXT, detailsActivity);
+        startActivity(detailsIntent);
     }
 }
