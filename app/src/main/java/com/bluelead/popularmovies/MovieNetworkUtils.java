@@ -38,7 +38,7 @@ public class MovieNetworkUtils {
         return netInfo != null && netInfo.isConnected();
     }
 
-    public static void getMovies(final Context context, String query, int id, final com.bluelead.popularmovies.Callback<ArrayList<Movie>> callbackInterface){
+    public static void getMovies(final Context context, String query, final com.bluelead.popularmovies.Callback<ArrayList<Movie>> callbackInterface){
 
         mMoviesList = new ArrayList<Movie>();
 

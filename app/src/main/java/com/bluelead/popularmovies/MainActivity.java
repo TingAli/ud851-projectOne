@@ -3,8 +3,10 @@ package com.bluelead.popularmovies;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -30,10 +32,9 @@ public class MainActivity extends Activity
     private ArrayList<Movie> mMoviesList;
     public static final int NUM_LIST_ITEMS = 6;
     private Bundle mBundle;
-    private final String[] QUERIES = new String[] {
-            new String(MovieNetworkUtils.POPULAR_QUERY),
-            new String(MovieNetworkUtils.TOP_RATED_QUERY)
-    };
+    private boolean mPopularPref, mTopRatedPref;
+    private SharedPreferences prefs;
+    private String mQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +49,23 @@ public class MainActivity extends Activity
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        // needs to check sharepreferences for query and sets to popular by default otherwise
+        prefs = PreferenceManager.getDefaultSharedPreferences(CONTEXT);
 
         // Start
         makeMovieQuery();
     }
 
     private void makeMovieQuery(){
+        mPopularPref = prefs.getBoolean("popular_pref_cb", true);
+        mTopRatedPref = prefs.getBoolean("topRated_pref_cb", false);
+
+        if(mPopularPref) {
+            mQuery = MovieNetworkUtils.POPULAR_QUERY;
+        }
+        else if(mTopRatedPref) {
+            mQuery = MovieNetworkUtils.TOP_RATED_QUERY;
+        }
+        
         if(MovieNetworkUtils.isOnline(CONTEXT)) {
             new MovieQueryTask().execute();
         }
@@ -74,7 +85,7 @@ public class MainActivity extends Activity
 
         @Override
         protected ArrayList<Movie> doInBackground(Void... params) {
-            MovieNetworkUtils.getMovies(CONTEXT, MovieNetworkUtils.POPULAR_QUERY, 0,
+            MovieNetworkUtils.getMovies(CONTEXT, mQuery,
                     new Callback<ArrayList<Movie>>() {
                 @Override
                 public void next(ArrayList<Movie> result) {
