@@ -28,7 +28,6 @@ public class MovieNetworkUtils {
     public final static String API_KEY = "08f5e8f842b74e8eee405e07bc06c86c";
     public final static String TOP_RATED_QUERY = "top_rated";
     public final static String POPULAR_QUERY = "popular";
-    public final static String DETAILS_QUERY = "details";
 
     private static ArrayList<Movie> mMoviesList;
 
@@ -62,9 +61,6 @@ public class MovieNetworkUtils {
         }
         else if(query == POPULAR_QUERY) {
             call = apiService.getPopular(API_KEY);
-        }
-        else if(query == DETAILS_QUERY) {
-            call = apiService.getMovieDetails(id, API_KEY);
         }
         else {
             Toast.makeText(context, "ERROR: Something went wrong!", Toast.LENGTH_LONG).show();

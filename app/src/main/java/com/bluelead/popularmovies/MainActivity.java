@@ -3,6 +3,7 @@ package com.bluelead.popularmovies;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -30,6 +31,11 @@ public class MainActivity extends Activity
     private ArrayList<Movie> mMoviesList;
     public static final int NUM_LIST_ITEMS = 6;
     private Bundle mBundle;
+    private SharedPreferences mSharedPreferences;
+    private final String[] QUERIES = new String[] {
+            new String(MovieNetworkUtils.POPULAR_QUERY),
+            new String(MovieNetworkUtils.TOP_RATED_QUERY)
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +50,9 @@ public class MainActivity extends Activity
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        //Start
+        // needs to check sharepreferences for query and sets to popular by default otherwise
+
+        // Start
         makeMovieQuery();
     }
 
@@ -142,11 +150,6 @@ public class MainActivity extends Activity
         if (mToast != null) {
             mToast.cancel();
         }
-
-        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
-        mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
-
-        mToast.show();
 
         // Intent for starting new DetailsActivity here...
         Class detailsActivity = DetailsActivity.class;
